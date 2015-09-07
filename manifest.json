@@ -1,0 +1,57 @@
+{
+    "name": "sina_weibo_login",
+    "version": "2.1",
+    "manifest_version": 2,
+    
+    "description": "新浪微博",
+    "icons":
+    {
+        "16": "16_icon.png",
+        "48": "48_icon.png",
+        "128": "128_icon.png"
+    },
+    
+    "background":
+    {
+        "page": "background.html"
+    },
+
+    "options_page": "index.html",
+
+    
+    "permissions": [
+                    "http://*/*",
+                    "https://*/*",
+                    "background",
+                    "bookmarks",            //	如果扩展程序使用 chrome.bookmarks模块则必须指定该权限。
+                    "chrome://favicon/",    //	如果扩展程序使用chrome://favicon/url"机制来显示页面的收藏夹图标则必须指定。
+                    "clipboardRead",        //	如果扩展程序或应用程序使用 document.execCommand('paste')则必须指定。
+                    "clipboardWrite",       //	表示扩展程序或应用程序可以使用 document.execCommand('copy')或 document.execCommand('cut'
+                    "contentSettings",      //       如果扩展程序使用 chrome.contentSettings模块则必须指定。
+                    "contextMenus",         // 如果扩展程序或应用程序使用 chrome.contextMenus模块则必须指定。
+                    "cookies",              //  如果扩展程序使用 chrome.cookies模块则必须指定。
+                    "experimental",         //  如果扩展程序或应用程序使用 chrome.experimental.* APIs则必须指定。
+                    "fileBrowserHandler",   //   如果扩展程序使用 fileBrowserhandler模块则必须指定。
+                    "geolocation",          //允许扩展程序或应用程序使用提出的HTML5 地理位置API 而不用提示用户。
+                    "history",              //如果扩展程序使用 chrome.history模块则必须指定。
+                    "idle",                    //如果扩展程序或应用程序使用 chrome.idle模块则必须指定。
+                    "management",           //如果扩展程序使用 chrome.management模块则必须指定。
+                    "notifications",        //允许扩展程序或应用程序使用提出的HTML5 通知API 而不需要调用方法请求权限
+                    "privacy",              //如果扩展程序使用 chrome.privacy模块则必须指定。
+                    "proxy",                //如果扩展程序使用 chrome.proxy模块则必须指定。
+                    "storage",              //如果扩展程序或应用程序使用 chrome.storage模块则必须指定。
+                    "tabs",                 //如果扩展程序使用 chrome.tabs或 chrome.windows模块则必须指定。
+                    "tts",                  //如果扩展程序或应用程序使用 chrome.tts 模块则必须指定。
+                    "ttsEngine",            //如果扩展程序使用 chrome.ttsEngine模块则必须指定。
+                    "unlimitedStorage",     //提供无限的存储空间，保存HTML5客户端数据
+                    "webNavigation"	,//如果扩展程序使用 chrome.webNavigation模块则必须指定。
+                    "webRequest",//	如果扩展程序使用 chrome.webRequest模块则必须指定。
+                    "webRequestBlocking"
+                    ],
+    
+    "browser_action":
+    {
+        "default_title": "TTTTT",
+        "default_icon": "16_icon.png"
+    }
+}
