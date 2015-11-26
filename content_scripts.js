@@ -29,7 +29,6 @@ var user_uid="";
 var user_name="";
 
 //uid=1304194202&amp;nick=\u5218\u8bd7\u8bd7\"&gt;&lt;span&gt;&lt;i
-
 var falg = dataDoc.search(/uid=.*\"&gt;&lt;span&gt;&lt;i/);
 if(falg>0)
 {
