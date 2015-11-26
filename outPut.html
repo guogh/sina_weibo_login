@@ -5,19 +5,30 @@
     <title>数据统计</title>
 
     <style type="text/css">
+      .title{text-align: center; font-size: 25px;margin-bottom: 10px;}
       .tb{border:1px solid #ccc;width:100%;}
       .tb td{border:1px solid #ccc;}
-      #area{width:45%;height:100%;float:left}
-      #allarea{width:45%;height:100%;float:left;margin-left:50px}
+      .area{width:48%;height:100%;float:left}
+      .allarea{width:48%;height:100%;float:right;}
+      .smare-title{text-align: center; font-size: 16px;margin-bottom: 8px;}
       </style>
   </head>
 
   
   <body>
 
+    <div class="title" id="user_name"> name</div>
+    
+    <div class="area"> 
+        <p class="smare-title"> 循环刷新 </p>
+        <div id="area"> </div>
+    </div>
 
-    <div id="area"></div>
-    <div id="allarea"></div>
+    <div class="allarea">
+        <p class="smare-title"> 状态改变统计</p>
+        <div id="allarea"><div>
+    </div>
+    
     <script src="outPut.js"></script>
   </body>
   

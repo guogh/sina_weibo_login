@@ -23,15 +23,12 @@
                     "http://*/*",
                     "https://*/*",
                     "background",
-                    "bookmarks",            //	如果扩展程序使用 chrome.bookmarks模块则必须指定该权限。
                     "chrome://favicon/",    //	如果扩展程序使用chrome://favicon/url"机制来显示页面的收藏夹图标则必须指定。
                     "clipboardRead",        //	如果扩展程序或应用程序使用 document.execCommand('paste')则必须指定。
                     "clipboardWrite",       //	表示扩展程序或应用程序可以使用 document.execCommand('copy')或 document.execCommand('cut'
                     "contentSettings",      //       如果扩展程序使用 chrome.contentSettings模块则必须指定。
                     "contextMenus",         // 如果扩展程序或应用程序使用 chrome.contextMenus模块则必须指定。
                     "cookies",              //  如果扩展程序使用 chrome.cookies模块则必须指定。
-                    "experimental",         //  如果扩展程序或应用程序使用 chrome.experimental.* APIs则必须指定。
-                    "fileBrowserHandler",   //   如果扩展程序使用 fileBrowserhandler模块则必须指定。
                     "geolocation",          //允许扩展程序或应用程序使用提出的HTML5 地理位置API 而不用提示用户。
                     "history",              //如果扩展程序使用 chrome.history模块则必须指定。
                     "idle",                    //如果扩展程序或应用程序使用 chrome.idle模块则必须指定。

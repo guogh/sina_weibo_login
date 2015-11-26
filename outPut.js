@@ -13,6 +13,7 @@ window.onload = function()
 {
     var html =  "";
     addhtml(html);
+    sunallhtml(html);
 }
 
 //实时刷新
@@ -44,8 +45,15 @@ function sunallhtml(html)
 }
 
 //接收消息
-chrome.extension.onMessage.addListener(function(message,sender,sendResponse)
+chrome.extension.onMessage.addListener(function(data,sender,sendResponse)
 {
+    var message =data.stat;
+    var user_uid=data.user_uid;
+    var user_name= unescape(data.user_name.replace(/\u/g, "%u"));//eval("'" + data.user_name + "'");
+    user_name= unescape(user_name.replace(/\\/g, "")); 
+    document.getElementById("user_name").innerHTML = "微博名字： "+user_name+" 的在线时间统计";
+
+
     var myDate = new Date();
     var moth = myDate.getMonth()+1;
     var time = moth + "_" + myDate.getDate() + "_" + myDate.getHours() + "_" + myDate.getMinutes() + "_" + myDate.getSeconds();
@@ -66,7 +74,6 @@ chrome.extension.onMessage.addListener(function(message,sender,sendResponse)
 
     var html = "<tr><td>"+message+"</td><td>"+ time +"</td><td>"+start+"</td></tr>";
     addhtml(html);
-
 });
 
 
