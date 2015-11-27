@@ -44,6 +44,9 @@
                     "webNavigation"	,//如果扩展程序使用 chrome.webNavigation模块则必须指定。
                     "webRequest",//	如果扩展程序使用 chrome.webRequest模块则必须指定。
                     "webRequestBlocking"
+                    //"fileSystem" ,
+                    //{"fileSystem": ["write"]} 
+                    //{"fileSystem": ["write","directory"]}
                     ],
     
     "browser_action":

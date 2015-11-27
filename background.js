@@ -118,6 +118,13 @@ function initAll()
 
         chrome.tabs.executeScript(tab.id,{file:"get_user_info.js"});
     });
+    // console.log(chrome.fileSystem);
+
+
+    // chrome.fileSystem.chooseEntry({type: 'saveFile'}, function(Entry){
+    //     console.log(Entry);
+    //     //do something with Entry
+    // });
 }
 
 //点击程序图标，运行程序

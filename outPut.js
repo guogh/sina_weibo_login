@@ -14,6 +14,10 @@ window.onload = function()
     var html =  "";
     addhtml(html);
     sunallhtml(html);
+
+    //
+    var btn=document.getElementById('save_to_file');
+    btn.onclick=save_to_file;
 }
 
 //实时刷新
@@ -77,7 +81,16 @@ chrome.extension.onMessage.addListener(function(data,sender,sendResponse)
 });
 
 
+//保存到文件
+function save_to_file(){
+    alert("敬请期待！");
 
+    // chrome.fileSystem.chooseEntry({type: 'saveFile'}, function(Entry){
+    //     console.log(Entry);
+    //     //do something with Entry
+    // });
+
+}
 
 
 
