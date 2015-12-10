@@ -11,6 +11,7 @@ var userName = "刘诗诗";
 var weiboName = "刘诗诗";
 
 
+
 //刘诗诗
 var urlstring = "http://weibo.com/aj/user/newcard?id=1304194202&usercardkey=weibo_mpj&type=1&callback=STK_14416147840273";
 
