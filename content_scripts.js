@@ -1,9 +1,6 @@
 /*
-
 注入到页面的 js 查找用户在线状态
-
 */
-
 
 var dataDoc =  window.document.getElementsByTagName("pre")[0].innerHTML;
 console.log(dataDoc);
@@ -62,4 +59,3 @@ chrome.extension.sendMessage(null,user_data,cellBack);
 function cellBack(data){
 	console.log("cellBack data:"+data);
 }
-

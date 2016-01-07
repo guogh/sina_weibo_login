@@ -60,7 +60,38 @@ chrome.extension.onMessage.addListener(function(data,sender,sendResponse)
 
     var myDate = new Date();
     var moth = myDate.getMonth()+1;
-    var time = moth + "_" + myDate.getDate() + "_" + myDate.getHours() + "_" + myDate.getMinutes() + "_" + myDate.getSeconds();
+    var day = myDate.getDate();
+    var hh = myDate.getHours();
+    var mm = myDate.getMinutes();
+    var ss = myDate.getSeconds();
+    
+    var time = "";
+    if(moth<10){
+    	time += "0";
+    }
+    time += moth+"_";
+    
+    if(day<10){
+    	time += "0";
+    }
+    time += day+"_";
+    
+    if(hh <10){
+    	time+="0";
+    }
+    time += hh+"_";
+    
+    if(mm<10){
+    	time+="0";
+    }
+    time+= mm+"_";
+    
+    if(ss<10){
+    	time+= "0";
+    }
+    time += ss;
+    
+    
 
     var start = "";
     if(isChenged == message)

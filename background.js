@@ -1,4 +1,3 @@
-
 //创建新的 页面
 var winid = 0;
 var tabsid = 0;
@@ -9,7 +8,6 @@ var isChenged = 0;
 var userId = "1304194202";
 var userName = "刘诗诗";
 var weiboName = "刘诗诗";
-
 
 
 //刘诗诗
@@ -58,7 +56,6 @@ function foo()
 
 //接收 搜索脚本 的 搜索结果 消息
 chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
-
     if (message.type== "get_user_info") {
         //获取 检测账号的 用户信息
         userId=message.uid;
@@ -88,8 +85,40 @@ function save_data(data)
 
     var myDate = new Date();
     var moth = myDate.getMonth()+1;
-    var time = moth + "_" + myDate.getDate() + "_" + myDate.getHours() + "_" + myDate.getMinutes() + "_" + myDate.getSeconds();
-
+    var day = myDate.getDate();
+    var hh = myDate.getHours();
+    var mm = myDate.getMinutes();
+    var ss = myDate.getSeconds();
+    
+    var time = "";
+    if(moth<10){
+    	time += "0";
+    }
+    time += moth+"_";
+    
+    if(day<10){
+    	time += "0";
+    }
+    time += day+"_";
+    
+    if(hh <10){
+    	time+="0";
+    }
+    time += hh+"_";
+    
+    if(mm<10){
+    	time+="0";
+    }
+    time+= mm+"_";
+    
+    if(ss<10){
+    	time+= "0";
+    }
+    time += ss;
+    
+//  moth + "_" + myDate.getDate() + "_" + myDate.getHours() + "_" + myDate.getMinutes() + "_" + myDate.getSeconds();
+	
+	console.log(myDate.toLocaleTimeString());
 
    var Chenged = 0;
     if(isChenged == sate)
@@ -114,11 +143,20 @@ function save_data(data)
 function initAll()
 {
     chrome.tabs.getSelected(null,function (tab){
+    		if(tab.id == null || tab.id.length == 0 || tab.title == "扩展程序" || tab.url == "chrome://extensions/"){
+    			alert("chrome.tabs.getSelected error");
+    			return;
+    		}
+    		
         console.log(tab.id);
-        console.debug(tab.id);
-
         chrome.tabs.executeScript(tab.id,{file:"get_user_info.js"});
     });
+
+
+//	start();
+
+
+
     // console.log(chrome.fileSystem);
 
 
