@@ -46,7 +46,7 @@ function sunallhtml(html)
     console.log(html);
     html_body_sum = html_body_sum +html;
 
-    if (html_body_sum.length > 60000)
+    if (html_body_sum.length > 600000)
     {
         html_body_sum = "<tr><td>统计</td><td>时间</td><td>状态改变</td></tr>" + html;
     }
