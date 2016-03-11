@@ -50,7 +50,7 @@ var user_data={};
 user_data.stat=stat;
 user_data.user_uid=user_uid;
 user_data.user_name=user_name;
-
+user_data.type = "content_scripts";
 
 //发送消息
 chrome.extension.sendMessage(null,user_data,cellBack);

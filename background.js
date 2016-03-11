@@ -15,7 +15,7 @@ var urlstring = "http://weibo.com/aj/user/newcard?id=1304194202&usercardkey=weib
 
 
 //存储服务器 的 URL
-var save_server_url="http://127.0.0.1:8080";
+var save_server_url="http://127.0.0.1:8888";
 
 function start(){
     //新建outTab
@@ -24,7 +24,7 @@ function start(){
         console.debug("outTabsId:"+outTabsId);
     })
 
-    //新建 存储结果的 tab
+    //新建 get请求 tab
     chrome.tabs.create({url:save_server_url,index:0,selected:false},function(tab)
     {
         saveDataTabsId = tab.id;
@@ -38,8 +38,7 @@ function start(){
         console.debug(tabsid);
         chrome.tabs.executeScript(tabsid,{file:"content_scripts.js"});
         var t1 = window.setInterval(foo,60000); 
-
-    });//tabs
+    });
 }
 
 //循环刷新
@@ -54,121 +53,93 @@ function foo()
 }
 
 
-//接收 搜索脚本 的 搜索结果 消息
-chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
-    if (message.type== "get_user_info") {
-        //获取 检测账号的 用户信息
-        userId=message.uid;
-        console.debug("uid:"+message.uid);
-        console.debug("name:"+message.name);
-        sendResponse({reponse:"get user info yes"});
-
-
-        urlstring = "http://weibo.com/aj/user/newcard?id="+userId+"&usercardkey=weibo_mpj&type=1";
-        start();
-        return;
-    };
-
-    save_data(message);   
-    console.debug("message::"+message);
-    sendResponse({reponse:"get data yes"});
-});
-
-
-//远程存储到 本地文件或数据库
+//发送get 请求
 function save_data(data)
 {
    var sate =data.stat;
    var user_uid=data.user_uid;
    var user_name=data.user_name;
+   
+   var myDate = new Date();
+   var timeJson = {};
+   timeJson.month = myDate.getMonth()+1;
+   timeJson.day = myDate.getDate();
+   timeJson.hour = myDate.getHours();
+   timeJson.minute = myDate.getMinutes();
+   timeJson.second = myDate.getSeconds();
+    
 
-
-    var myDate = new Date();
-    var moth = myDate.getMonth()+1;
-    var day = myDate.getDate();
-    var hh = myDate.getHours();
-    var mm = myDate.getMinutes();
-    var ss = myDate.getSeconds();
-    
-    var time = "";
-    if(moth<10){
-    	time += "0";
-    }
-    time += moth+"_";
-    
-    if(day<10){
-    	time += "0";
-    }
-    time += day+"_";
-    
-    if(hh <10){
-    	time+="0";
-    }
-    time += hh+"_";
-    
-    if(mm<10){
-    	time+="0";
-    }
-    time+= mm+"_";
-    
-    if(ss<10){
-    	time+= "0";
-    }
-    time += ss;
-    
-//  moth + "_" + myDate.getDate() + "_" + myDate.getHours() + "_" + myDate.getMinutes() + "_" + myDate.getSeconds();
-	
-	console.log(myDate.toLocaleTimeString());
-
-   var Chenged = 0;
-    if(isChenged == sate)
-    { //没有改变状态
+    var Chenged = 0;
+    if(isChenged == sate){ 
+        //没有改变状态
          Chenged = 0;
-    }
-    else
-    {  //改变了状态
+    }else{
+         //改变了状态
          isChenged = sate;
          Chenged = 1;
     }
 
-    var saveUrlString = "http://127.0.0.1:8080/";
-    saveUrlString = saveUrlString + sate + "_" +time + "_" + Chenged + "_" + user_uid + "_" + user_name;
+    var sendJson = {};
+    sendJson.timeJson = timeJson;
+    sendJson.state = sate;
+    sendJson.Chenged = Chenged;
+    sendJson.user_uid = user_uid;
+    sendJson.user_name = user_name;
 
-    chrome.tabs.update(saveDataTabsId,{url:saveUrlString,selected:false},
-        function(tab){
+    //转成json字符串
+    var stringJson = JSON.stringify(sendJson);
+    save_server_url = save_server_url + "/saveData?parameter=" + stringJson;
+
+
+    console.log("save_server_url:"+save_server_url);
+    chrome.tabs.update(saveDataTabsId,{url:save_server_url,selected:false},function(tab){
             console.debug(tab);
-        }); 
+    }); 
 }
 
+//接收 消息
+chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
+    if (message.type== "get_user_info") {
+        //获取用户信息脚本 返回的消息
+        userId=message.uid;
+        console.debug("uid:"+message.uid);
+        console.debug("name:"+message.name);
+        sendResponse({reponse:"get user info yes"});
+
+        urlstring = "http://weibo.com/aj/user/newcard?id="+userId+"&usercardkey=weibo_mpj&type=1";
+        start();
+    }else if(message.type == "content_scripts"){
+        //搜索用户在线信息脚本 返回的消息
+        save_data(message);
+        console.debug("message::"+JSON.stringify(message));
+        sendResponse({reponse:"get data yes"});
+    } else if(message.type == "clean_loca_data"){
+        //清除数据，刷新outPut页面。
+        chrome.tabs.update(outTabsId,{url:"outPut.html"},function(tab){
+            console.debug("清楚数据，刷新页面");
+        }); 
+
+        console.debug("message::"+JSON.stringify(message));
+        sendResponse({reponse:"get message for clean_loca_data"});
+    }
+});
+
+//初始化
 function initAll()
 {
     chrome.tabs.getSelected(null,function (tab){
     		if(tab.id == null || tab.id.length == 0 || tab.title == "扩展程序" || tab.url == "chrome://extensions/"){
-    			alert("chrome.tabs.getSelected error");
+    			alert("获取微博用户信息失败，请打开，并选中需要监听的微博主页：messgae:"+tab.url);
     			return;
     		}
     		
         console.log(tab.id);
         chrome.tabs.executeScript(tab.id,{file:"get_user_info.js"});
     });
-
-
-//	start();
-
-
-
-    // console.log(chrome.fileSystem);
-
-
-    // chrome.fileSystem.chooseEntry({type: 'saveFile'}, function(Entry){
-    //     console.log(Entry);
-    //     //do something with Entry
-    // });
 }
 
 //点击程序图标，运行程序
 chrome.browserAction.onClicked.addListener(initAll);
-
 
 
 
