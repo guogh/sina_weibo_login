@@ -88,11 +88,11 @@ function save_data(data)
 
     //转成json字符串
     var stringJson = JSON.stringify(sendJson);
-    save_server_url = save_server_url + "/saveData?parameter=" + stringJson;
+    var get_resqurt_url = save_server_url + "/saveData?parameter=" + stringJson;
 
 
-    console.log("save_server_url:"+save_server_url);
-    chrome.tabs.update(saveDataTabsId,{url:save_server_url,selected:false},function(tab){
+    console.log("get_resqurt_url:"+get_resqurt_url);
+    chrome.tabs.update(saveDataTabsId,{url:get_resqurt_url,selected:false},function(tab){
             console.debug(tab);
     }); 
 }
