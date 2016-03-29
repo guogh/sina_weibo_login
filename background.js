@@ -130,9 +130,15 @@ function initAll()
     chrome.tabs.getSelected(null,function (tab){
     		if(tab.id == null || tab.id.length == 0 || tab.title == "扩展程序" || tab.url == "chrome://extensions/"){
     			alert("获取微博用户信息失败，请打开，并选中需要监听的微博主页：messgae:"+tab.url);
-    			return;
+    			
+                //默认检测的用户
+                if (userId == null || userName == null || weiboName == null || urlstring == null) {
+                    return;
+                }else{
+                    alert("检测默认的微博用户："+weiboName);
+                    start();
+                }
     		}
-    		
         console.log(tab.id);
         chrome.tabs.executeScript(tab.id,{file:"get_user_info.js"});
     });
