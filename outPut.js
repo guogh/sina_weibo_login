@@ -26,7 +26,7 @@ window.onload = function()
     clean_btn.onclick=clean_to_file;
 }
 
-//实时刷新
+//实时刷新 左边表格添加
 function addhtml(html)
 {
     console.log(html);
@@ -40,7 +40,7 @@ function addhtml(html)
     document.getElementById("area").innerHTML = html_head + html_body + html_foot;
 }
 
-//状态改变刷新
+//状态改变刷新  右边表格添加
 function sunallhtml(html)
 {
     console.log(html);
@@ -58,11 +58,21 @@ function sunallhtml(html)
 function upDateView(viewData){
 
     if(viewData.state == "yes"){ //改变状态
-         var html_sun = "<tr><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+		if (viewData.message == "online") {
+        	var html_sun = "<tr style='background:#FD1400;><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+		}else{
+			var html_sun = "<tr><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+		}
          sunallhtml(html_sun);
     }
 
-    var html = "<tr><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+    if (viewData.message == "offline") {
+    	var html = "<tr style='background:#C8F5EE;'><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+    }else if(viewData.message == "online"){
+		var html = "<tr style='background:#FD1400;><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+    }
+
+
     addhtml(html);
 }
 
