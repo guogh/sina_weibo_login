@@ -53,7 +53,7 @@ function foo()
 }
 
 
-//发送get 请求
+//保存消息到本地
 function save_data(data)
 {
    var sate =data.stat;
@@ -111,8 +111,8 @@ chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
     }else if(message.type == "content_scripts"){
         //搜索用户在线信息脚本 返回的消息
         save_data(message);
-        console.debug("message::"+JSON.stringify(message));
-        sendResponse({reponse:"get data yes"});
+        console.debug("backgtound.js*****message:"+JSON.stringify(message));
+        // sendResponse({reponse:"get data yes"});
     } else if(message.type == "clean_loca_data"){
         //清除数据，刷新outPut页面。
         chrome.tabs.update(outTabsId,{url:"outPut.html"},function(tab){

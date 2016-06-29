@@ -57,19 +57,19 @@ function sunallhtml(html)
 //更新视图
 function upDateView(viewData){
 
-    if(viewData.state == "yes"){ //改变状态
+    if(viewData.state == "yes"){ //是否改变状态
 		if (viewData.message == "online") {
-        	var html_sun = "<tr style='background:#FD1400;><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
-		}else{
-			var html_sun = "<tr><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+        	var html_sun = "<tr style='background:#6FEE39;'><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+		}else if(viewData.message == "offline"){
+			var html_sun = "<tr style='background:#FFFFFF;'><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
 		}
          sunallhtml(html_sun);
     }
 
     if (viewData.message == "offline") {
-    	var html = "<tr style='background:#C8F5EE;'><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+    	var html = "<tr style='background:#FFFFFF;'><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
     }else if(viewData.message == "online"){
-		var html = "<tr style='background:#FD1400;><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
+		var html = "<tr style='background:#6FEE39;'><td>"+viewData.message+"</td><td>"+ viewData.OnTime +"</td><td>"+viewData.state+"</td></tr>";
     }
 
 
@@ -141,6 +141,9 @@ function getMesageData(data){
     saveData.state = state;
     saveData.message = message;
 
+
+    console.debug("outPut.js*****message:"+JSON.stringify(saveData));
+
     //存储到本地
     save_local(saveData);
 
@@ -181,8 +184,8 @@ function save_local(saveData){
                 array = new Array();
             }
 
-            console.log(array.join());
-            console.log(JSON.stringify(saveData));
+            // console.log(array.join());
+            // console.log(JSON.stringify(saveData));
             
             array.push(saveData)
             
@@ -191,7 +194,7 @@ function save_local(saveData){
             chrome.storage.local.set(data,function(){
                 for (var i=0;i<array.length;i++) {
                     var mesage = array[i];
-                    console.log(JSON.stringify(mesage));
+                    console.log("output本地存储的消息："+JSON.stringify(mesage));
                 }
             });
         });
